@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ATS Resume Analyzer</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 0 15px rgba(0,0,0,0.1);
+            width:700px;
+        }
+
+        h1{
+            text-align:center;
+            color:#333;
+        }
+
+        input[type=file]{
+            width:100%;
+            padding:10px;
+        }
+
+        textarea{
+            width:100%;
+            padding:10px;
+            border-radius:8px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>ATS Resume Analyzer</h1>
+
+    <form action="/upload"
+          method="post"
+          enctype="multipart/form-data">
+
+        <label><b>Upload Resume (PDF)</b></label>
+        <br><br>
+
+        <input type="file"
+               name="file"
+               accept=".pdf"
+               required>
+
+        <br><br>
+
+        <label><b>Paste Job Description</b></label>
+
+        <br><br>
+
+        <textarea
+                name="jobDescription"
+                rows="10"
+                placeholder="Paste Job Description Here..."
+                required></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Analyze Resume
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

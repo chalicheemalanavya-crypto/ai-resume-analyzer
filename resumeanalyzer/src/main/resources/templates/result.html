@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ATS Result</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            padding:30px;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 0 15px rgba(0,0,0,0.1);
+        }
+
+        h1{text-align:center;}
+
+        .score{text-align:center;margin:20px 0;}
+
+        .progress{
+            width:100%;
+            background:#ddd;
+            border-radius:20px;
+            overflow:hidden;
+            height:30px;
+        }
+
+        .bar{
+            height:30px;
+            background:green;
+            color:white;
+            text-align:center;
+            line-height:30px;
+            font-weight:bold;
+        }
+
+        .section{margin-top:30px;}
+
+        ul{list-style:none;padding:0;}
+
+        li{
+            padding:8px;
+            margin:5px 0;
+            border-radius:6px;
+        }
+
+        .detected li{background:#d4edda;}
+
+        .missing li{background:#f8d7da;}
+
+        .level{
+            text-align:center;
+            font-size:22px;
+            color:#007bff;
+            font-weight:bold;
+        }
+
+        .error{
+            color:red;
+            text-align:center;
+            font-weight:bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>ATS Resume Analysis Result</h1>
+
+    <div th:if="${error}" class="error">
+        <span th:text="${error}"></span>
+    </div>
+
+    <p>
+        <b>File Name:</b>
+        <span th:text="${fileName}"></span>
+    </p>
+
+    <div class="score">
+
+        <h2>ATS Score:
+            <span th:text="${atsScore}"></span>%
+        </h2>
+        <h3>Job Match Percentage</h3>
+
+        <p>
+            <span th:text="${jobMatch}"></span>%
+        </p>
+
+        <div class="progress">
+            <div class="bar"
+                 th:style="'width:' + ${atsScore} + '%'">
+                <span th:text="${atsScore} + '%'"></span>
+            </div>
+        </div>
+
+        <br>
+
+        <h2>Resume Match:
+            <span th:text="${matchScore}"></span>%
+        </h2>
+
+    </div>
+
+    <p class="level" th:text="${level}"></p>
+
+    <!-- DETECTED SKILLS -->
+    <div class="section detected">
+        <h2>✅ Detected Skills</h2>
+
+        <ul>
+            <li th:if="${detectedSkills == null || #lists.isEmpty(detectedSkills)}">
+                No skills detected
+            </li>
+
+            <li th:each="skill : ${detectedSkills}"
+                th:text="${skill}">
+            </li>
+        </ul>
+    </div>
+
+    <!-- MISSING SKILLS -->
+    <div class="section missing">
+        <h2>❌ Missing Skills</h2>
+
+        <ul>
+            <li th:if="${missingSkills == null || #lists.isEmpty(missingSkills)}">
+                No missing skills 🎉
+            </li>
+
+            <li th:each="skill : ${missingSkills}"
+                th:text="${skill}">
+            </li>
+        </ul>
+    </div>
+
+    <!-- SUGGESTIONS -->
+    <div class="section">
+        <h2>💡 AI Suggestions</h2>
+
+        <ul>
+            <li th:if="${suggestions == null || #lists.isEmpty(suggestions)}">
+                Your resume looks good 👍
+            </li>
+
+            <li th:each="s : ${suggestions}"
+                th:text="${s}">
+            </li>
+        </ul>
+    </div>
+
+    <br>
+
+    <a href="/">
+        <button style="padding:10px 20px;">Analyze Another Resume</button>
+    </a>
+
+    <br><br>
+
+    <a href="/downloadReport">
+        <button>Download PDF Report</button>
+    </a>
+
+</div>
+
+</body>
+</html>
